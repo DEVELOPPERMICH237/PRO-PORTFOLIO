@@ -358,7 +358,13 @@
             <span class="contact-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
             </span>
-            <div><h3>Write email</h3><a href="mailto:you@example.com">you@example.com</a></div>
+            <div><h3>Write email</h3><a href="mailto:sarraf.noupayou@gmail.com?subject=Portfolio%20Inquiry">sarraf.noupayou@gmail.com</a></div>
+          </article>
+          <article class="contact-card">
+            <span class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.4A19.5 19.5 0 0 1 3.5 13 19.8 19.8 0 0 1 .1 4.3 2 2 0 0 1 2.1 2h3a2 2 0 0 1 2 1.7l.5 2.3a2 2 0 0 1-.5 1.8L5.8 8.5a16 16 0 0 0 9.7 9.7l.7-.7a2 2 0 0 1 1.8-.5l2.3.5A2 2 0 0 1 22 16.9Z"/></svg>
+            </span>
+            <div><h3>Call me</h3><a href="tel:+237687117225">(+237) 687117225</a></div>
           </article>
           <article class="contact-card">
             <span class="contact-icon" aria-hidden="true">
@@ -368,36 +374,37 @@
           </article>
         </div>
 
-        <form class="contact-form" action="mailto:you@example.com" method="post" enctype="text/plain">
+        <form id="contact-form" class="contact-form" action="https://formspree.io/f/mdeerngv" method="POST">
           <div class="form-row">
-            <label><span class="sr-only">Name</span><input type="text" name="Name" placeholder="Name..." autocomplete="name" required></label>
-            <label><span class="sr-only">Email</span><input type="email" name="Email" placeholder="Email..." autocomplete="email" required></label>
+            <label><span class="sr-only">Name</span><input type="text" name="name" placeholder="Name..." autocomplete="name" required></label>
+            <label><span class="sr-only">Email</span><input type="email" name="email" placeholder="Email..." autocomplete="email" required></label>
           </div>
           <div class="form-row">
-            <label><span class="sr-only">Phone (optional)</span><input type="tel" name="Phone" placeholder="Phone (optional)..." autocomplete="tel"></label>
+            <label><span class="sr-only">Phone (optional)</span><input type="tel" name="phone" placeholder="Phone (optional)..." autocomplete="tel"></label>
             <label>
               <span class="sr-only">Select a service</span>
-              <select name="Service" required>
+              <select name="service" required>
                 <option value="" disabled selected>Select a service</option>
-                <option>Website development</option>
-                <option>UI/UX design</option>
-                <option>Collaboration</option>
-                <option>Other</option>
+                <option value="Website development">Website development</option>
+                <option value="UI/UX design">UI/UX design</option>
+                <option value="Collaboration">Collaboration</option>
+                <option value="Other">Other</option>
               </select>
             </label>
           </div>
-          <label><span class="sr-only">Message</span><textarea name="Message" placeholder="Message..." rows="5" required></textarea></label>
+          <label><span class="sr-only">Message</span><textarea name="message" placeholder="Message..." rows="5" required></textarea></label>
           <button class="contact-submit" type="submit">Send message <span aria-hidden="true">↗</span></button>
+          <p class="form-status" aria-live="polite"></p>
         </form>
       </div>
 
       <div class="contact-socials">
         <p>Find me online</p>
         <ul class="socials">
-          <li><a href="https://www.instagram.com/yourusername/" target="_blank" rel="noopener noreferrer" aria-label="Instagram (update profile link)">
+          <li><a href="https://www.instagram.com/mrcars27?obrf=MWs0ZXN4ZWZvOWFraQ==" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>
           </a></li>
-          <li><a href="https://www.linkedin.com/in/yourname/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (update profile link)">
+          <li><a href="https://www.linkedin.com/in/michel-tchomgui-sarraf-7184b743a?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.2 3.5a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6ZM3.7 8.5h3v11h-3v-11Zm5 0h2.9V10h.1c.4-.8 1.4-1.8 3-1.8 3.2 0 3.8 2.1 3.8 4.8v6.5h-3v-5.8c0-1.4 0-3.1-1.9-3.1s-2.1 1.5-2.1 3v5.9h-3v-11Z"/></svg>
           </a></li>
           <li><a href="https://github.com/DEVELOPPERMICH237" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
@@ -413,6 +420,45 @@
     <span>©2026 Michael</span>
     <a href="#home">Back to top ↑</a>
   </footer>
+
+  <script>
+    const contactForm = document.getElementById('contact-form');
+    const statusMessage = document.querySelector('.form-status');
+    const submitButton = document.querySelector('.contact-submit');
+
+    if (contactForm && statusMessage && submitButton) {
+      contactForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        submitButton.disabled = true;
+        submitButton.innerHTML = 'Sending...';
+        statusMessage.textContent = 'Sending your message...';
+        statusMessage.className = 'form-status';
+
+        try {
+          const response = await fetch(contactForm.action, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: new FormData(contactForm)
+          });
+
+          if (response.ok) {
+            contactForm.reset();
+            statusMessage.textContent = 'Thanks! Your message has been sent successfully.';
+            statusMessage.classList.add('success');
+          } else {
+            throw new Error('Submission failed');
+          }
+        } catch (error) {
+          statusMessage.textContent = 'Something went wrong. Please try again or email me directly.';
+          statusMessage.classList.add('error');
+        } finally {
+          submitButton.disabled = false;
+          submitButton.innerHTML = 'Send message <span aria-hidden="true">↗</span>';
+        }
+      });
+    }
+  </script>
 
 </body>
 </html>
