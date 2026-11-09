@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Michael | Junior Frontend Developer</title>
   <meta name="description" content="Portfolio of Michael, a junior frontend developer building simple, smart and impactful web experiences.">
+  <link rel="icon" type="image/png" href="images/logo.ico">
+  <link rel="apple-touch-icon" href="images/logo.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
@@ -19,14 +21,16 @@
         <img src="images/logo.ico" alt="NovaDesk logo" class="logo-mark">
         <span class="logo-text">NovaDesk</span>
       </a>
-      <ul class="nav-links">
+      <ul class="nav-links" id="primary-navigation">
         <li><a href="#home" class="active">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#work">Work</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <button class="burger" aria-label="Open menu"><span></span><span></span></button>
+      <button class="burger" type="button" aria-label="Open navigation menu" aria-controls="primary-navigation" aria-expanded="false">
+        <span></span><span></span>
+      </button>
     </nav>
 
     <h1 class="bg-name" aria-hidden="true">MICHAEL</h1>
@@ -68,7 +72,13 @@
         <div>
           <p>I'm Michael, a student in computer science option software engineering.</p>
             <p>I am a self-driven developer who loves turning ideas into fast, usable websites, systems and applications. I care about semantic and details that make a site feel polished.</p>
-          <a class="btn" href="doc/Michel Sarraf NOUPAYOU TCHOMGUI cv.pdf" download>Download résumé ↓</a>
+          <details class="resume-dropdown">
+            <summary class="btn">Download résumé <span aria-hidden="true">↓</span></summary>
+            <div class="resume-options">
+              <a href="doc/Michel Sarraf NOUPAYOU TCHOMGUI cv.pdf" download>Tech résumé</a>
+              <a href="doc/CV_MichelSarraf.pdf" download>Teaching résumé</a>
+            </div>
+          </details>
         </div>
       </div>
 
@@ -170,9 +180,9 @@
         </article>
 
         <article class="project">
-          <img class="img-wrap" src="images/images (1).png" alt="Screenshot of Project Four">
+          <img class="img-wrap" src="images/Capture d'écran 2026-11-10 090814.png" alt="Screenshot of Project Four">
           <div class="project-body">
-            <h3>Project Four — A Bg-remover and converter web app</h3>
+            <h3>Project Four — Workbench web app</h3>
             <p class="problem"><b>Problem:</b> Create a web application that allows users to remove backgrounds and convert extensions.</p>
             <p class="role"><b>My role:</b> Developed the frontend and integrated the background removal functionality and extension conversion features.</p>
             <p class="challenge"><b>Challenge:</b> Ensuring a smooth user experience while maintaining performance.</p>
@@ -422,6 +432,30 @@
   </footer>
 
   <script>
+    const navigation = document.querySelector('.nav');
+    const navigationToggle = document.querySelector('.burger');
+    const navigationLinks = document.querySelectorAll('.nav-links a');
+
+    if (navigation && navigationToggle) {
+      const closeNavigation = () => {
+        navigation.classList.remove('is-open');
+        navigationToggle.setAttribute('aria-expanded', 'false');
+        navigationToggle.setAttribute('aria-label', 'Open navigation menu');
+      };
+
+      navigationToggle.addEventListener('click', () => {
+        const isOpen = navigationToggle.getAttribute('aria-expanded') === 'true';
+        navigation.classList.toggle('is-open', !isOpen);
+        navigationToggle.setAttribute('aria-expanded', String(!isOpen));
+        navigationToggle.setAttribute('aria-label', isOpen ? 'Open navigation menu' : 'Close navigation menu');
+      });
+
+      navigationLinks.forEach((link) => link.addEventListener('click', closeNavigation));
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeNavigation();
+      });
+    }
+
     const contactForm = document.getElementById('contact-form');
     const statusMessage = document.querySelector('.form-status');
     const submitButton = document.querySelector('.contact-submit');
